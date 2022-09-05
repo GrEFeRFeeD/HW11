@@ -36,11 +36,11 @@ public class Main {
         System.out.println("Task 3: " + sortedNumbers);
 
         // Task 4
-        long a = 25214903917L, c = 11, m = 2 ^ 48;
-        Stream<Long> infiniteStream = getInfiniteStream(5, a, c, m, 10);
-        System.out.println("Task 4: infinite stream of 10 elements with seed 5: " + infiniteStream.collect(Collectors.toList()));
-        infiniteStream = getInfiniteStream(10, a, c, m, 10);
-        System.out.println("Task 4: infinite stream of 10 elements with seed 10: " + infiniteStream.collect(Collectors.toList()));
+        long a = 25214903917L, c = 11, m = (long)  Math.pow(2, 48);
+        Stream<Long> infiniteStream = getInfiniteStream(5, a, c, m);
+        System.out.println("Task 4: infinite stream of 10 elements with seed 5: " + infiniteStream.limit(10).collect(Collectors.toList()));
+        infiniteStream = getInfiniteStream(10, a, c, m);
+        System.out.println("Task 4: infinite stream of 10 elements with seed 10: " + infiniteStream.limit(10).collect(Collectors.toList()));
 
         // Task 5
         List<Integer> listA = List.of(1, 3, 5, 7, 9);
@@ -53,8 +53,8 @@ public class Main {
 
     }
 
-    public static Stream<Long> getInfiniteStream(long seed, long a, long c, long m, long size) {
-        return Stream.iterate(seed, x -> (a * x + c) % m).limit(size);
+    public static Stream<Long> getInfiniteStream(long seed, long a, long c, long m) {
+        return Stream.iterate(seed, x -> (a * x + c) % m);
     }
 
     public static <T> Stream<T> zip(Stream<T> first, Stream<T> second) {
